@@ -1,0 +1,9 @@
+[submodule "extern/nuklear"]
+	path = extern/NuklearLib/nuklear
+	url = https://github.com/pengyz/nuklear.git 	
+[submodule "extern/StormLib"]
+	path = extern/StormLib
+	url = git@github.com:pengyz/StormLib.git
+[submodule "extern/NuklearLib/nuklear"]
+	path = extern/NuklearLib/nuklear
+	url = git@github.com:pengyz/nuklear.git
