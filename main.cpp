@@ -43,12 +43,13 @@ int main() {
     ctx = nk_glfw3_init(window,NK_GLFW3_INSTALL_CALLBACKS);
     //font baking
     struct nk_font_atlas *atlas = nullptr;
-    struct nk_font_config config = nk_font_config(20);
+    struct nk_font_config config = nk_font_config(14);
     config.oversample_h = 1;
     config.oversample_v = 1;
+//    config.range = nk_font_cyrillic_glyph_ranges();   //this should success with text Кнопка
     config.range = nk_font_chinese_glyph_ranges();
     nk_glfw3_font_stash_begin(&atlas);
-    struct nk_font *font = nk_font_atlas_add_from_file(atlas,"../extra_font/DejaVuSansMono.ttf",20,&config);
+    struct nk_font *font = nk_font_atlas_add_from_file(atlas,"../resources/fonts/DejaVuSansMono.ttf",14,&config);
     nk_glfw3_font_stash_end();
    //set the font
     if(font)
@@ -61,14 +62,18 @@ int main() {
 
         //let's draw a simple ui.
         {
-            if(nk_begin(ctx, u8"测试窗口", nk_rect(50,50,500,600),
+            if(nk_begin(ctx, u8"Кнопка", nk_rect(50,50,400,400),
                         NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE | NK_WINDOW_TITLE | NK_WINDOW_CLOSABLE)){
                 //draw it
                 nk_layout_row_dynamic(ctx,30,2);
-                if(nk_button_label(ctx,u8"Hello World !")){
-                    fprintf(stderr,"Hello World clicked！\n");
+                if(nk_button_label(ctx,"选择mpq文件"))
+                {
+                    std::cout << "mpq label clicked !" << std::endl;
                 }
-                nk_label(ctx,"世界你好",NK_TEXT_RIGHT);
+                if(nk_button_text(ctx,"nk_button_text",16))
+                {
+                    std::cout << "nk_button_text" << std::endl;
+                }
             }
             nk_end(ctx);
         }
