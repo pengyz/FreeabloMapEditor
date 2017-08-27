@@ -20,6 +20,7 @@ include_directories(
         ${OPENGL_INCLUDE_DIRS}
         ${PNG_INCLUDE_DIR}
         "${PROJECT_SOURCE_DIR}/extern/StormLib/src/"
+        "$(PROJECT_SOURCE_DIR)/extern/glm/glm/"
 )
 
 
@@ -43,6 +44,7 @@ link_libraries(
         ${GLEW_LIBRARIES}
         StormLib
         nuklear
+        glm
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
@@ -53,5 +55,5 @@ set(SOURCE_FILES
         main.cpp
         nuklear_glfw_gl3.h
         nuklear_glfw_gl3.cpp
-        )
+        glShader.cpp glShader.h)
 add_executable(FreeabloMapEditor ${SOURCE_FILES})

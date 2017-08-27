@@ -58,3 +58,7 @@ endif()
 # nuklear
 ###################
 add_subdirectory(NuklearLib)
+
+# glm
+###################
+add_subdirectory(glm)
