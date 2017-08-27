@@ -37,23 +37,35 @@ add_subdirectory (extern)
 
 link_libraries(StormLib)
 
-link_libraries(
-        ${PNG_LIBRARY}
-        ${OPENGL_LIBRARIES}
+set(COMMON_LIBS
+        ${OPENGL_LIBRARY}
         ${GLFW3_LIBRARIES}
         ${GLEW_LIBRARIES}
-        StormLib
-        nuklear
+        ${PNG_LIBRARY}
         glm
-)
+        )
+
+
+
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-
-
-
-set(SOURCE_FILES
+# FreeabloMapEditor
+add_executable(FreeabloMapEditor
         main.cpp
         nuklear_glfw_gl3.h
         nuklear_glfw_gl3.cpp
         glShader.cpp glShader.h)
-add_executable(FreeabloMapEditor ${SOURCE_FILES})
+target_link_libraries( FreeabloMapEditor
+        ${COMMON_LIBS}
+        StormLib
+        nuklear
+)
+
+#ogl-toturial-05
+add_executable(ogl-toturial-05
+        glShader.cpp
+        glShader.h
+        ogl-toturial-05.cpp)
+
+target_link_libraries(ogl-toturial-05
+        ${COMMON_LIBS})
