@@ -5,23 +5,17 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
-find_package(ZLIB REQUIRED)
-if(NOT ZLIB_FOUND)
-    message(Error "OpenGL not found")
-endif(NOT ZLIB_FOUND)
 
 find_package(PNG REQUIRED)
+if(NOT PNG_FOUND)
+    message("PNG not found")
+endif(NOT PNG_FOUND)
+
 find_package(OpenGL REQUIRED)
-find_package(GLFW3 REQUIRED)
-find_package(GLEW REQUIRED)
+if(NOT OPENGL_FOUND)
+    message(Error "OpenGL not found")
+endif(NOT OPENGL_FOUND)
 
-
-include_directories(
-        ${OPENGL_INCLUDE_DIRS}
-        ${PNG_INCLUDE_DIR}
-        "${PROJECT_SOURCE_DIR}/extern/StormLib/src/"
-        "$(PROJECT_SOURCE_DIR)/extern/glm/glm/"
-)
 
 
 # allow the user to specify extra include dirs and defines on the command line
@@ -36,19 +30,31 @@ endif()
 add_subdirectory (extern)
 
 link_libraries(StormLib)
+link_libraries(glm)
+
+
+
+include_directories(
+        ${OPENGL_INCLUDE_DIRS}
+        ${PNG_INCLUDE_DIR}
+)
+
+
 
 set(COMMON_LIBS
         ${OPENGL_LIBRARY}
-        ${GLFW3_LIBRARIES}
+        ${GLFW_LIBRARIES}
         ${GLEW_LIBRARIES}
         ${PNG_LIBRARY}
-        glm
+        glew
+        glfw
         )
 
 
-
-
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+
+
+
 # FreeabloMapEditor
 add_executable(FreeabloMapEditor
         main.cpp

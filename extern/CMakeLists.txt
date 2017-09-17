@@ -62,3 +62,10 @@ add_subdirectory(NuklearLib)
 # glm
 ###################
 add_subdirectory(glm)
+
+
+### GLEW ###
+add_subdirectory(glew-1.13.0/build/cmake)
+
+### GLFE3 ###
+add_subdirectory(glfw-3.1.2)
