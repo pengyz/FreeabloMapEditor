@@ -67,11 +67,21 @@ target_link_libraries( FreeabloMapEditor
         nuklear
 )
 
-#ogl-toturial-05
-add_executable(ogl-toturial-05
+#ogl-toturial05
+add_executable(toturial05
         glShader.cpp
         glShader.h
-        ogl-toturial-05.cpp)
+        toturial05.cpp)
 
-target_link_libraries(ogl-toturial-05
+target_link_libraries(toturial05
+        ${COMMON_LIBS})
+
+
+#ogl-toturial08
+add_executable(toturial08
+        glShader.cpp
+        glShader.h
+        toturial08.cpp)
+
+target_link_libraries(toturial08
         ${COMMON_LIBS})
