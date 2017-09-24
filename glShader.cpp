@@ -19,7 +19,7 @@ namespace Misc{
                 retString += "\n" + line;
             vertexShaderStream.close();
         } else{
-            getchar();
+            std::cerr << "open file: " << shader_file_path << " failed !" << std::endl;
             return "";
         }
         return retString;
@@ -67,7 +67,7 @@ namespace Misc{
             return 0;
         }
         if(!compileShader(fragmentShaderId, fragmentShaderSource, errorInfo)){
-            std::cerr << "compile vertex shader fialed ! with log: " << errorInfo.c_str() << std::endl;
+            std::cerr << "compile fragment shader fialed ! with log: " << errorInfo.c_str() << std::endl;
             return 0;
         }
         //link program

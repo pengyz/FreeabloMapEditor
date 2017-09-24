@@ -91,6 +91,9 @@ int main() {
     if(font)
         nk_style_set_font(ctx,&font->handle);
 
+    glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+
+
     // An array of 3 vectors which represents 3 vertices
     static const GLfloat g_vertex_buffer_data[] = {
             -1.0f,-1.0f,-1.0f, // triangle 1 : begin
