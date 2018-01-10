@@ -1,59 +1,50 @@
 cmake_minimum_required(VERSION 3.8)
+
+include("cmake/HunterGate.cmake")
+HunterGate(
+  URL "https://github.com/ruslo/hunter/archive/v0.19.225.tar.gz"
+  SHA1 "96acb7ba4f1023018d271d8b53f229c5d3eff9e7"  
+  LOCAL
+  )
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_BUILD_TYPE debug)
 project(FreeabloMapEditor)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(HUNTER_LIBS "")
+hunter_add_package(glfw)
+find_package(glfw3 CONFIG REQUIRED)
+set(HUNTER_LIBS ${HUNTER_LIBS} glfw)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+hunter_add_package(glew)
+find_package(glew CONFIG REQUIRED)
+set(HUNTER_LIBS ${HUNTER_LIBS} glew::glew)
 
-find_package(PNG REQUIRED)
-if(NOT PNG_FOUND)
-    message("PNG not found")
-endif(NOT PNG_FOUND)
+hunter_add_package(stormlib)
+find_package(stormlib CONFIG REQUIRED)
+set(HUNTER_LIBS ${HUNTER_LIBS} stormlib::stormlib)
+
+hunter_add_package(glm)
+find_package(glm CONFIG REQUIRED)
+set(HUNTER_LIBS ${HUNTER_LIBS} glm)
+
+hunter_add_package(Boost COMPONENTS filesystem system regex)
+find_package(Boost CONFIG REQUIRED  filesystem system regex)
+set(HUNTER_BOOST_LIBS Boost::filesystem Boost::system Boost::regex)
+set(HUNTER_LIBS ${HUNTER_LIBS} ${HUNTER_BOOST_LIBS})
 
 find_package(OpenGL REQUIRED)
-if(NOT OPENGL_FOUND)
-    message(Error "OpenGL not found")
-endif(NOT OPENGL_FOUND)
-
-
-
-# allow the user to specify extra include dirs and defines on the command line
-if(CLI_INCLUDE_DIRS)
-    include_directories(${CLI_INCLUDE_DIRS})
-endif()
-if(CLI_DEFINES)
-    add_definitions(${CLI_DEFINES})
-endif()
-
-
-add_subdirectory (extern)
-
-link_libraries(StormLib)
-link_libraries(glm)
-
 
 
 include_directories(
         ${OPENGL_INCLUDE_DIRS}
-        ${PNG_INCLUDE_DIR}
 )
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
+message("Cmake binary dir:" ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
-
-set(COMMON_LIBS
-        ${OPENGL_LIBRARY}
-        ${GLFW_LIBRARIES}
-        ${GLEW_LIBRARIES}
-        ${PNG_LIBRARY}
-        glew
-        glfw
-        )
-
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
-
-
+add_subdirectory(extern/NuklearLib)
 
 # FreeabloMapEditor
 add_executable(FreeabloMapEditor
@@ -62,26 +53,26 @@ add_executable(FreeabloMapEditor
         nuklear_glfw_gl3.cpp
         glShader.cpp glShader.h)
 target_link_libraries( FreeabloMapEditor
-        ${COMMON_LIBS}
-        StormLib
+        ${HUNTER_LIBS}
         nuklear
 )
 
-#ogl-toturial05
-add_executable(toturial05
-        glShader.cpp
-        glShader.h
-        toturial05.cpp)
 
-target_link_libraries(toturial05
-        ${COMMON_LIBS})
+# #ogl-toturial05
+# add_executable(toturial05
+#         glShader.cpp
+#         glShader.h
+#         toturial05.cpp)
+
+# target_link_libraries(toturial05
+#         ${HUNTER_LIBS})
 
 
-#ogl-toturial08
-add_executable(toturial08
-        glShader.cpp
-        glShader.h
-        toturial08.cpp)
+# #ogl-toturial08
+# add_executable(toturial08
+#         glShader.cpp
+#         glShader.h
+#         toturial08.cpp)
 
-target_link_libraries(toturial08
-        ${COMMON_LIBS})
+# target_link_libraries(toturial08
+#         ${HUNTER_LIBS})

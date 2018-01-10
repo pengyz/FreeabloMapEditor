@@ -17,7 +17,8 @@
 void drawMainGui(GLFWwindow *window)
 {
     //let's draw a simple ui.
-    nk_context *ctx = static_cast<nk_context*>(glfwGetWindowUserPointer(window));
+    nk_context *ctx =
+        static_cast<nk_context *>(glfwGetWindowUserPointer(window));
     int width = 0,height = 0;
     glfwGetWindowSize(window,&width, &height);
     if(!ctx) return;

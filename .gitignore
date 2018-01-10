@@ -2,3 +2,13 @@
 cmake-build-*/
 *.MPQ
 *.mpq
+_3rdParty/
+bin/
+Makefile
+CMakeFiles/
+compile_commands.json
+*.o
+*.a
+*.cmake
+CMakeCache.txt
+CMakeDoxyfile.in
